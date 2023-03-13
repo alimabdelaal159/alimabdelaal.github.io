@@ -1,17 +1,33 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "../node_modules/bootstrap/dist/css/bootstrap.css";
+import NavSection from './components/navbar-section';
+import SliderSection from './components/slider';
+import "./style.css";
+import HomePage from "./components/home-page";
+import ThemeProvider from "react-bootstrap/ThemeProvider";
+import BlogPage from "./components/blog-page";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+export default function App() {
+  return (
+    <ThemeProvider
+      breakpoints={["xxxl", "xxl", "xl", "lg", "md", "sm", "xs", "xxs"]}
+      minBreakpoint="xxs"
+    >
+      <div>
+        <NavSection/>
+      </div>
+      <Routes>
+        <Route path="/" element={<HomePage />}/>
+        <Route path="/home-page.jsx" element={<HomePage />} />
+        <Route path="/slider.jsx" element={<SliderSection />} />
+        <Route path="/blog-page.jsx" element={<BlogPage />} />
+      </Routes>
+    </ThemeProvider>
+    
+  );
+}
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<BrowserRouter><App /></BrowserRouter>);
